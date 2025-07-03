@@ -21,8 +21,8 @@ Website ini menyajikan data **Upah Minimum Provinsi (UMP)** seluruh Indonesia da
 ```
 ├── index.html       # Halaman utama website
 ├── style.css        # Styling tampilan
-├── script.js        # Logika interaktif (JS)
-├── data.json        # File data UMP (2021–2024)
+├── script.js        # Logika interaktif
+├── data.json        # File data UMP (2015–2024)
 └── README.md        # Dokumentasi proyek
 ```
 
