@@ -10,8 +10,7 @@ Website ini menyajikan data **Upah Minimum Provinsi (UMP)** seluruh Indonesia da
 
 ## 🧾 Fitur
 
-- Visualisasi UMP tiap provinsi dari tahun **2021 hingga 2024**
-- Tampilan responsif dan ringan
+- Visualisasi UMP tiap provinsi dari tahun **2015 hingga 2024**
 - Interaktif, cocok untuk keperluan edukasi dan referensi publik
 - Sumber data dari Badan Pusat Statistik (BPS)
 
