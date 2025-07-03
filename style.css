@@ -151,8 +151,9 @@ select {
 }
 
 .card {
-  flex: 1 1 45%;
+  flex: 1 1 0;
   min-width: 300px; /* Min-width kartu sedikit diperbesar */
+  max-width: calc(50% - 0.9rem);
   padding: 1.8rem; /* Padding kartu diperbesar */
   border-radius: 10px;
   text-align: center;

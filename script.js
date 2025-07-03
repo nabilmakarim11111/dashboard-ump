@@ -268,7 +268,7 @@ function updateTrendChart(provinsi) {
 }
 
 async function generateTrendExplanation(provinsi, trendData) {
-  aiExplanationDiv.innerHTML = '<p class="loading-text">AI sedang menganalisis tren UMP...</p>';
+  aiExplanationDiv.innerHTML = '<p class="loading-text">Harap tunggu...</p>';
 
   const trendArray = Object.entries(trendData)
     .sort(([yearA], [yearB]) => parseInt(yearA) - parseInt(yearB))
