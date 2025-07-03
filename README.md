@@ -1,76 +1,34 @@
-# README untuk Dasbor UMP
+# 📊 Dashboard UMP Indonesia
+
+Website ini menyajikan data **Upah Minimum Provinsi (UMP)** seluruh Indonesia dalam bentuk dashboard yang interaktif dan mudah diakses.
+
+🔗 **Kunjungi Website:**  
+👉 [https://nabilmakarim11111.github.io/dashboard-ump/](https://nabilmakarim11111.github.io/dashboard-ump/)
 
 ---
 
-### Gambaran Umum
+## 🧾 Fitur
 
-Proyek ini adalah dasbor web dinamis yang dirancang untuk memvisualisasikan dan menganalisis data **Upah Minimum Provinsi (UMP)** di berbagai wilayah di Indonesia. Dasbor ini menyediakan platform interaktif bagi pengguna untuk menjelajahi tren UMP, mengidentifikasi nilai UMP tertinggi dan terendah, serta mendapatkan wawasan tentang kondisi ekonomi regional. Dasbor ini memanfaatkan teknologi web modern untuk memberikan pengalaman pengguna yang responsif dan menarik.
-
----
-
-### Fitur
-
-* **Visualisasi Data Interaktif**: Menyajikan data UMP melalui grafik dan bagan yang intuitif, membuat informasi kompleks mudah dicerna.
-* **Tampilan UMP Tertinggi/Terendah**: Dengan cepat menyoroti provinsi dengan nilai UMP tertinggi dan terendah untuk tahun tertentu.
-* **Analisis Tren**: Memungkinkan pengguna untuk memilih provinsi dan tahun tertentu guna mengamati perubahan UMP dari waktu ke waktu.
-* **Penjelasan Didukung AI**: (Jika berlaku, berdasarkan _backend_ Anda) Memberikan wawasan penjelasan yang berasal dari data, berpotensi menggunakan AI atau analisis yang sudah ditentukan sebelumnya.
-* **Desain Responsif**: Dioptimalkan untuk tampilan dan interaksi yang mulus di berbagai perangkat, dari _desktop_ hingga ponsel.
-* **Antarmuka Pengguna Bersih**: Desain modern dan ramah pengguna memastikan navigasi dan pengalaman eksplorasi data yang lancar.
+- Visualisasi UMP tiap provinsi dari tahun **2021 hingga 2024**
+- Tampilan responsif dan ringan
+- Interaktif, cocok untuk keperluan edukasi dan referensi publik
+- Sumber data dari Badan Pusat Statistik (BPS)
 
 ---
 
-### Teknologi yang Digunakan
-
-* **HTML5**: Untuk menyusun konten web.
-* **CSS3**: Untuk penataan gaya dan tata letak, termasuk desain responsif.
-* **JavaScript**: Untuk elemen interaktif, manipulasi data, dan pemuatan konten dinamis.
-* **Chart.js**: (Diasumsikan Anda menggunakannya untuk grafik) Pustaka _charting_ JavaScript yang fleksibel untuk membuat visualisasi data yang menakjubkan.
-* **tsparticles**: (Jika digunakan untuk efek latar belakang) Pustaka JavaScript ringan untuk membuat partikel, _confetti_, dan lainnya.
-
----
-
-### Memulai Proyek
-
-Untuk melihat dan menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
-
-1.  **_Clone_ repositori**:
-    ```bash
-    git clone [https://github.com/nabilmakarim11111/dashboard-ump.git](https://github.com/nabilmakarim11111/dashboard-ump.git)
-    ```
-2.  **Masuk ke direktori proyek**:
-    ```bash
-    cd dashboard-ump
-    ```
-3.  **Buka `index.html`**:
-    Cukup buka file `index.html` di _browser_ web pilihan Anda. Karena ini adalah proyek _front-end_ saja, tidak diperlukan pengaturan _server_ yang rumit.
+## 🗂️ Struktur Folder
+├── index.html # Halaman utama website
+├── style.css # Styling tampilan
+├── script.js # Logika interaktif (JS)
+├── data.json # File data UMP (2021–2024)
+└── README.md # Dokumentasi proyek
 
 ---
 
-### Struktur Proyek
-dashboard-ump/
-├── index.html        # File HTML utama untuk dasbor
-├── style.css         # File CSS utama untuk gaya
-├── script.js         # File JavaScript utama untuk logika dan interaksi
-└── data/             # (Opsional) Direktori untuk file data (misalnya, JSON)
-└── ump_data.json # (Contoh) File JSON yang berisi data UMP
-└── assets/           # (Opsional) Direktori untuk gambar, font, dll.
----
+## 🛠️ Cara Menjalankan Secara Lokal
 
-### Peningkatan di Masa Depan
+1. Clone repository:
+   ```bash
+   git clone https://github.com/nabilmakarim11111/dashboard-ump.git
+   cd dashboard-ump
 
-* Integrasi dengan API _backend_ untuk pembaruan data UMP secara _real-time_.
-* Analisis statistik yang lebih canggih dan pemodelan prediktif.
-* Otentikasi pengguna dan dasbor yang dipersonalisasi.
-* Opsi ekspor untuk grafik dan data.
-
----
-
-### Berkontribusi
-
-Kontribusi sangat kami sambut! Jika Anda memiliki saran untuk perbaikan atau ingin melaporkan masalah, silakan buka _issue_ atau kirim _pull request_.
-
----
-
-### Lisensi
-
-Proyek ini adalah _open source_ dan tersedia di bawah [Lisensi MIT](https://opensource.org/licenses/MIT). (Ini adalah pilihan umum, silakan ganti jika Anda lebih suka lisensi lain).
