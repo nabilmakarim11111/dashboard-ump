@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard UMP Indonesia</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.12.0/tsparticles.slim.bundle.min.js"></script>
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <header>
+    <h1>Dashboard UMP Indonesia</h1>
+    <p>Perbandingan Upah Minimum Provinsi Tahun 2015–2024</p>
+  </header>
+
+  <nav class="main-nav">
+    <a href="#" class="nav-button active" data-section="dashboard-section">📊 Dashboard UMP</a>
+    <a href="#" class="nav-button" data-section="trend-analysis-section">📈 Tren & Analisis Provinsi</a>
+    <a href="#" class="nav-button" data-section="about-ump-section">📚 Tentang UMP</a>
+    <!-- Tombol Navigasi Baru -->
+    <a href="#" class="nav-button" data-section="about-data-section">📖 Tentang Data</a>
+  </nav>
+
+  <main class="container">
+    <!-- Bagian Dashboard UMP -->
+    <section id="dashboard-section" class="content-section active">
+      <section class="controls">
+        <label for="year">Pilih Tahun:</label>
+        <select id="year">
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024" selected>2024</option>
+        </select>
+      </section>
+
+      <section class="summary">
+        <div class="card highlight">
+          <h3>UMP Tertinggi</h3>
+          <p id="highest">-</p>
+        </div>
+        <div class="card lowlight">
+          <h3>UMP Terendah</h3>
+          <p id="lowest">-</p>
+        </div>
+      </section>
+
+      <section id="chart-container">
+        <canvas id="umpChart"></canvas>
+      </section>
+    </section>
+
+    <!-- Bagian Tren & Analisis Provinsi -->
+    <section id="trend-analysis-section" class="content-section">
+      <section class="trend-section">
+        <h2>Lihat Tren per Provinsi</h2>
+        <div class="controls">
+          <div>
+            <label for="province-select">Pilih Provinsi:</label>
+            <select id="province-select"></select>
+          </div>
+        </div>
+        <div id="trend-chart-container" style="margin-top: 1rem;">
+          <canvas id="trendChart"></canvas>
+        </div>
+        <div id="ai-explanation-container">
+          <h3>Analisis Tren UMP (Oleh AI)</h3>
+          <div id="ai-explanation" class="ai-explanation-card">
+            <p class="loading-text">Pilih provinsi untuk melihat analisis tren...</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Bagian Tentang UMP (Edukasi) -->
+    <section id="about-ump-section" class="content-section">
+      <div class="about-card">
+        <h2>📚 Tentang Upah Minimum Provinsi (UMP)</h2>
+        <p>Upah Minimum Provinsi (UMP) adalah standar upah minimum yang berlaku di seluruh wilayah provinsi. UMP ditetapkan oleh Gubernur sebagai jaring pengaman sosial untuk melindungi pekerja/buruh agar tidak dibayar terlalu rendah.</p>
+        
+        <h3>Konsep Dasar UMP</h3>
+        <ul>
+          <li><strong>Tujuan:</strong> Memastikan pekerja memiliki daya beli yang layak dan melindungi mereka dari eksploitasi upah.</li>
+          <li><strong>Penetapan:</strong> Ditetapkan setiap tahun oleh Gubernur berdasarkan rekomendasi Dewan Pengupahan Provinsi, dengan mempertimbangkan inflasi dan pertumbuhan ekonomi.</li>
+          <li><strong>Berlaku untuk:</strong> Pekerja dengan masa kerja kurang dari 1 tahun pada perusahaan yang bersangkutan.</li>
+          <li><strong>Bukan Upah Tunggal:</strong> UMP adalah batas bawah, bukan upah tunggal. Perusahaan didorong untuk memberikan upah di atas UMP sesuai dengan produktivitas dan kinerja.</li>
+        </ul>
+
+        <h3>Dasar Hukum UMP</h3>
+        <p>Dasar hukum penetapan UMP di Indonesia telah mengalami beberapa perubahan. Beberapa peraturan utama yang relevan meliputi:</p>
+        <ul>
+          <li><strong>Undang-Undang Nomor 13 Tahun 2003 tentang Ketenagakerjaan:</strong> Meskipun sebagian telah diubah, undang-undang ini menjadi dasar awal pengaturan upah minimum.</li>
+          <li><strong>Peraturan Pemerintah Nomor 36 Tahun 2021 tentang Pengupahan:</strong> Ini adalah peraturan pelaksana dari Undang-Undang Cipta Kerja yang mengatur secara lebih rinci mengenai formula penetapan upah minimum.</li>
+          <li><strong>Undang-Undang Nomor 6 Tahun 2023 tentang Penetapan Peraturan Pemerintah Pengganti Undang-Undang Nomor 2 Tahun 2022 tentang Cipta Kerja menjadi Undang-Undang:</strong> Mengukuhkan perubahan-perubahan terkait ketenagakerjaan, termasuk upah minimum.</li>
+          <li><strong>Peraturan Menteri Ketenagakerjaan (Permenaker):</strong> Setiap tahunnya, Kementerian Ketenagakerjaan mengeluarkan Permenaker yang berisi pedoman teknis penetapan upah minimum untuk tahun berikutnya.</li>
+        </ul>
+        <p>Perlu dicatat bahwa regulasi mengenai UMP dapat berubah seiring waktu sesuai dengan kebijakan pemerintah dan kondisi ekonomi nasional.</p>
+      </div>
+    </section>
+
+    <!-- Bagian Baru: Tentang Data -->
+    <section id="about-data-section" class="content-section">
+      <div class="about-card"> <!-- Menggunakan kelas about-card untuk konsistensi gaya -->
+        <h2>Tentang Data</h2>
+        <h3>Ruang Lingkup Data</h3>
+        <p>Data Upah Minimum Provinsi (UMP) yang ditampilkan dalam dashboard ini mencakup periode tahun 2015 hingga 2024 untuk seluruh provinsi di Indonesia, termasuk provinsi-provinsi baru yang terbentuk. Data ini bertujuan untuk memberikan gambaran komprehensif mengenai perkembangan UMP dari waktu ke waktu.</p>
+        <h3>Sumber Data</h3>
+        <p>Data UMP ini bersumber dari publikasi resmi Badan Pusat Statistik (BPS) dan Kementerian Ketenagakerjaan Republik Indonesia. Data dikumpulkan secara berkala dari laporan resmi pemerintah untuk memastikan akurasi dan relevansi informasi yang disajikan.</p>
+        <h3>Siapa yang Bisa Menggunakan Data Ini</h3>
+        <ul>
+          <li><strong>Pekerja/Buruh:</strong> Untuk memahami hak-hak upah minimum mereka di provinsi masing-masing dan memantau kenaikan UMP.</li>
+          <li><strong>Pengusaha:</strong> Sebagai referensi penting dalam penetapan kebijakan penggajian, perencanaan anggaran, dan kepatuhan terhadap regulasi ketenagakerjaan.</li>
+          <li><strong>Peneliti dan Akademisi:</strong> Untuk studi ekonomi, analisis pasar tenaga kerja, penelitian sosial, dan pengembangan kebijakan.</li>
+          <li><strong>Masyarakat Umum:</strong> Untuk mendapatkan informasi transparan mengenai perkembangan UMP di Indonesia, sebagai bagian dari pemahaman kondisi ekonomi dan sosial.</li>
+        </ul>
+        <h3>Sumber data</h3>
+        <p>Berikut adalah sumber data yang digunakan:</p>
+        <ul>
+          <li><a href="https://sultra.bps.go.id/id/statistics-table/1/NDc4MyMx/upah-minimum-provinsi-ump-per-bulan-menurut-provinsi-di-indonesia-rupiah-2021-2024.html" target="_blank">Upah Minimum Provinsi (UMP) per Bulan Menurut Provinsi di Indonesia (rupiah), 2021-2024</a></li>
+          <li><a href="https://www.bps.go.id/id/statistics-table/2/MjIwIzI=/upah-minimum-regional-propinsi.html" target="_blank">Upah Minimum Regional/Propinsi (Rupiah)</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Statistik UMR | Data: Badan Pusat Statistik</p>
+    <p>Nabil Makarim</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
