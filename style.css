@@ -83,6 +83,15 @@ header p {
   border-radius: 10px;
 }
 
+.dashboard-heading {
+  text-align: center;
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 2rem;
+}
+
 /* Gaya untuk bagian konten yang dapat di-toggle */
 .content-section {
   display: none; /* Sembunyikan semua bagian konten secara default */
@@ -116,6 +125,15 @@ header p {
   margin-bottom: 0; /* Hapus margin bawah jika ada */
 }
 
+#dashboard-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+
 #trend-analysis-section .trend-section {
   margin-top: 0;
   padding-top: 0;
@@ -133,6 +151,7 @@ header p {
   margin-bottom: 2.8rem;
   font-size: 1.2rem;
 }
+
 
 select {
   padding: 0.7rem 1.3rem;
@@ -208,6 +227,7 @@ footer {
 
 .trend-section h2 {
   text-align: center;
+  margin-top: 0rem;
   margin-bottom: 2rem;
   font-weight: 600;
   color: var(--primary);
@@ -239,7 +259,8 @@ footer {
 
 #ai-explanation-container h3 {
   text-align: center;
-  margin-bottom: 1.8rem;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
   font-weight: 600;
   color: var(--primary);
   font-size: 1.6rem;
@@ -256,6 +277,7 @@ footer {
 
 .ai-explanation-card p {
   margin: 0;
+  margin-top: -1rem;
   font-size: 1.4rem;
 }
 
@@ -281,20 +303,21 @@ footer {
 
 .about-card h2 {
   text-align: center;
+  margin-top: -2rem;
   color: var(--primary);
-  font-size: 2.2rem; /* Ukuran h2 dikurangi dari 2.2rem */
-  margin-bottom: 1.8rem;
+  font-size: 2rem; /* Ukuran h2 dikurangi dari 2.2rem */
+  margin-bottom: 1rem;
 }
 
 .about-card h3 {
   color: var(--primary);
-  font-size: 1.8rem; /* Ukuran h3 tetap */
+  font-size: 1.5rem; /* Ukuran h3 tetap */
   margin-top: 1.8rem;
   margin-bottom: 1rem;
 }
 
 .about-card p {
-  font-size: 1.4rem; /* Ukuran font paragraf dikurangi dari 2rem */
+  font-size: 1.3rem; /* Ukuran font paragraf dikurangi dari 2rem */
   line-height: 1.7; /* Line height disesuaikan untuk keterbacaan */
   margin-bottom: 1.5rem; /* Margin bawah disesuaikan */
 }
@@ -302,11 +325,11 @@ footer {
 .about-card ul {
   list-style-type: disc;
   margin-left: 2.5rem; /* Margin kiri tetap */
-  margin-bottom: 1.5rem; /* Margin bawah disesuaikan */
+  margin-bottom: 1.3rem; /* Margin bawah disesuaikan */
 }
 
 .about-card ul li {
-  font-size: 1.4rem; /* Ukuran font list item dikurangi dari 2rem */
+  font-size: 1.3rem; /* Ukuran font list item dikurangi dari 2rem */
   margin-bottom: 0.8rem; /* Margin bawah sedikit disesuaikan */
   line-height: 1.7; /* Line height disesuaikan untuk keterbacaan */
 }

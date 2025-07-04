@@ -13,20 +13,20 @@
   <div id="tsparticles"></div>
   <header>
     <h1>Dashboard UMP Indonesia</h1>
-    <p>Perbandingan Upah Minimum Provinsi Tahun 2015–2024</p>
   </header>
 
   <nav class="main-nav">
     <a href="#" class="nav-button active" data-section="dashboard-section">📊 Dashboard UMP</a>
     <a href="#" class="nav-button" data-section="trend-analysis-section">📈 Tren & Analisis Provinsi</a>
     <a href="#" class="nav-button" data-section="about-ump-section">📚 Tentang UMP</a>
-    <!-- Tombol Navigasi Baru -->
     <a href="#" class="nav-button" data-section="about-data-section">📖 Tentang Data</a>
+    <a href="#" class="nav-button" data-section="about-anggota-section">📖 Tentang Kelompok</a>
   </nav>
 
   <main class="container">
     <!-- Bagian Dashboard UMP -->
     <section id="dashboard-section" class="content-section active">
+      <h2 class="dashboard-heading">Ringkasan Upah Minimum Provinsi (UMP) per Tahun</h2>
       <section class="controls">
         <label for="year">Pilih Tahun:</label>
         <select id="year">
@@ -41,7 +41,7 @@
           <option value="2024" selected>2024</option>
         </select>
       </section>
-
+      
       <section class="summary">
         <div class="card highlight">
           <h3>UMP Tertinggi</h3>
@@ -56,6 +56,9 @@
       <section id="chart-container">
         <canvas id="umpChart"></canvas>
       </section>
+      <p id="chart-description" style="text-align: center; margin-top: 1.5rem; font-style: italic; color: #555;"> Grafik ini perbandingan UMP provinsi di Indonesia pada tahun <span id="selected-year">2024</span>.
+      Arahkan kursor ke batang grafik untuk melihat detail kenaikan dari tahun sebelumnya.
+      </p>
     </section>
 
     <!-- Bagian Tren & Analisis Provinsi -->
@@ -83,7 +86,7 @@
     <!-- Bagian Tentang UMP (Edukasi) -->
     <section id="about-ump-section" class="content-section">
       <div class="about-card">
-        <h2>📚 Tentang Upah Minimum Provinsi (UMP)</h2>
+        <h2>Tentang Upah Minimum Provinsi (UMP)</h2>
         <p>Upah Minimum Provinsi (UMP) adalah standar upah minimum yang berlaku di seluruh wilayah provinsi. UMP ditetapkan oleh Gubernur sebagai jaring pengaman sosial untuk melindungi pekerja/buruh agar tidak dibayar terlalu rendah.</p>
         
         <h3>Konsep Dasar UMP</h3>
@@ -112,8 +115,6 @@
         <h2>Tentang Data</h2>
         <h3>Ruang Lingkup Data</h3>
         <p>Data Upah Minimum Provinsi (UMP) yang ditampilkan dalam dashboard ini mencakup periode tahun 2015 hingga 2024 untuk seluruh provinsi di Indonesia, termasuk provinsi-provinsi baru yang terbentuk. Data ini bertujuan untuk memberikan gambaran komprehensif mengenai perkembangan UMP dari waktu ke waktu.</p>
-        <h3>Sumber Data</h3>
-        <p>Data UMP ini bersumber dari publikasi resmi Badan Pusat Statistik (BPS). Data dikumpulkan secara berkala dari laporan resmi pemerintah untuk memastikan akurasi dan relevansi informasi yang disajikan.</p>
         <h3>Siapa yang Bisa Menggunakan Data Ini</h3>
         <ul>
           <li><strong>Pekerja/Buruh:</strong> Untuk memahami hak-hak upah minimum mereka di provinsi masing-masing dan memantau kenaikan UMP.</li>
@@ -122,19 +123,42 @@
           <li><strong>Masyarakat Umum:</strong> Untuk mendapatkan informasi transparan mengenai perkembangan UMP di Indonesia, sebagai bagian dari pemahaman kondisi ekonomi dan sosial.</li>
         </ul>
         <h3>Sumber data</h3>
-        <p>Berikut adalah sumber data yang digunakan:</p>
+        <p>Data UMP ini bersumber dari publikasi resmi Badan Pusat Statistik (BPS). Data dikumpulkan secara berkala dari laporan resmi pemerintah untuk memastikan akurasi dan relevansi informasi yang disajikan.</p>
+        <p>Berikut adalah data yang digunakan:</p>
         <ul>
           <li><a href="https://sultra.bps.go.id/id/statistics-table/1/NDc4MyMx/upah-minimum-provinsi-ump-per-bulan-menurut-provinsi-di-indonesia-rupiah-2021-2024.html" target="_blank">Upah Minimum Provinsi (UMP) per Bulan Menurut Provinsi di Indonesia (rupiah), 2021-2024</a></li>
           <li><a href="https://www.bps.go.id/id/statistics-table/2/MjIwIzI=/upah-minimum-regional-propinsi.html" target="_blank">Upah Minimum Regional/Propinsi (Rupiah)</a></li>
         </ul>
       </div>
     </section>
+    <!-- Bagian Baru: Tentang Data -->
+    <section id="about-anggota-section" class="content-section">
+      <div class="about-card"> <!-- Menggunakan kelas about-card untuk konsistensi gaya -->
+        <h2>Anggota Kelompok</h2>
+        <div class="team-members">
+          <div class="member-card">
+            <h3>Aditya Pratama</h3>
+            <p><strong>NIM:</strong> 222413471</p>
+          </div>
+          <div class="member-card">
+            <h3>Ahmad Ghifari Firzatullah</h3>
+            <p><strong>NIM:</strong> 222413478</p>
+          </div>
+          <div class="member-card">
+            <h3>Heryanto Kadri</h3>
+            <p><strong>NIM:</strong> 222413601</p>
+          </div>
+          <div class="member-card">
+            <h3>Nabil Makarim</h3>
+            <p><strong>NIM:</strong> 222413700</p>
+          </div>
+        </div>
+    </section>
 
   </main>
 
   <footer>
     <p>© 2025 Statistik UMR | Data: Badan Pusat Statistik</p>
-    <p>Nabil Makarim</p>
   </footer>
 
   <script src="script.js"></script>
