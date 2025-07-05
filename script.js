@@ -75,7 +75,16 @@ async function fetchData() {
         if (!response.ok) throw new Error("Gagal memuat data.json");
         umpData = await response.json();
 
-        processDataForTrends(umpData);
+        // **NEW: Load cached trends from localStorage**
+        const cachedTrends = localStorage.getItem('provinceTrendsCache');
+        if (cachedTrends) {
+            provinceTrends = JSON.parse(cachedTrends);
+            console.log("Loaded province trends from cache.");
+        } else {
+            processDataForTrends(umpData);
+            console.log("Processed province trends from data.json.");
+        }
+
         populateProvinceDropdown();
 
         // Inisialisasi chart utama saat data dimuat (untuk section dashboard)
@@ -103,12 +112,14 @@ function processDataForTrends(data) {
     for (const year in data) {
         for (const provinsi in data[year]) {
             if (!provinceTrends[provinsi]) {
-                provinceTrends[provinsi] = {};
+                provinceTrends[provinsi] = {
+                    umpValues: {} // Store UMP values here
+                };
             }
             const nilai = data[year][provinsi];
-            const numericValue = parseUmpValue(nilai); // Gunakan helper function
-            if (numericValue !== null) { // Check if parsing was successful
-                provinceTrends[provinsi][year] = numericValue;
+            const numericValue = parseUmpValue(nilai);
+            if (numericValue !== null) {
+                provinceTrends[provinsi].umpValues[year] = numericValue;
             }
         }
     }
@@ -250,15 +261,16 @@ function updateChart(year) {
 }
 
 function updateTrendChart(provinsi) {
-    const trendData = provinceTrends[provinsi];
-    if (!trendData) {
+    const currentProvinceTrendData = provinceTrends[provinsi];
+    if (!currentProvinceTrendData || !currentProvinceTrendData.umpValues) {
         console.error(`Data tren untuk ${provinsi} tidak ditemukan.`);
         aiExplanationDiv.innerHTML = `<p class="error-text">Data tren untuk ${provinsi} tidak ditemukan.</p>`;
         return;
     }
 
-    const labels = Object.keys(trendData).sort();
-    const values = labels.map(year => trendData[year]);
+    const trendValues = currentProvinceTrendData.umpValues; // Get the UMP values for this province
+    const labels = Object.keys(trendValues).sort();
+    const values = labels.map(year => trendValues[year]);
 
     if (trendChart) trendChart.destroy();
 
@@ -317,13 +329,20 @@ function updateTrendChart(provinsi) {
         }
     });
 
-    generateTrendExplanation(provinsi, trendData);
+    // **NEW: Check if AI explanation is cached**
+    if (currentProvinceTrendData.aiExplanation) {
+        console.log(`Loading AI explanation for ${provinsi} from cache.`);
+        aiExplanationDiv.innerHTML = `<p>${currentProvinceTrendData.aiExplanation}</p>`;
+    } else {
+        console.log(`Generating AI explanation for ${provinsi}...`);
+        generateTrendExplanation(provinsi, trendValues); // Pass only the UMP values for the prompt
+    }
 }
 
-async function generateTrendExplanation(provinsi, trendData) {
+async function generateTrendExplanation(provinsi, trendValues) { // Renamed parameter to trendValues
     aiExplanationDiv.innerHTML = '<p class="loading-text">Harap tunggu...</p>';
 
-    const trendArray = Object.entries(trendData)
+    const trendArray = Object.entries(trendValues) // Use trendValues here
         .sort(([yearA], [yearB]) => parseInt(yearA) - parseInt(yearB))
         .map(([year, value]) => `${year}: Rp${value.toLocaleString("id-ID")}`);
 
@@ -334,7 +353,7 @@ async function generateTrendExplanation(provinsi, trendData) {
         chatHistory.push({ role: "user", parts: [{ text: prompt }] });
         const payload = { contents: chatHistory };
         // In a real application, consider using a backend to handle API calls to keep API keys secure.
-        const apiKey = "AIzaSyCua_9rl4iYQCw0HWN0A_9Ik5KSktM44b8";
+        const apiKey = "AIzaSyCua_9rl4iYQCw0HWN0A_9Ik5KSktM44b8"; // **REMINDER: Use your actual API key and ensure it's secure in production!**
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(apiUrl, {
@@ -350,6 +369,13 @@ async function generateTrendExplanation(provinsi, trendData) {
             result.candidates[0].content.parts.length > 0) {
             const text = result.candidates[0].content.parts[0].text;
             aiExplanationDiv.innerHTML = `<p>${text}</p>`;
+
+            // **NEW: Save the generated explanation to provinceTrends**
+            provinceTrends[provinsi].aiExplanation = text;
+            // **NEW: Persist provinceTrends to localStorage**
+            localStorage.setItem('provinceTrendsCache', JSON.stringify(provinceTrends));
+            console.log(`AI explanation for ${provinsi} saved to cache.`);
+
         } else {
             aiExplanationDiv.innerHTML = '<p class="error-text">Gagal mendapatkan analisis dari AI. Coba lagi nanti.</p>';
             console.error("Unexpected AI response structure:", result);
