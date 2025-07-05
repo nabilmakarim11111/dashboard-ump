@@ -5,14 +5,10 @@
   --highlight: #d2e3fc;
   --lowlight: #ffe0e0;
   --text: #333;
-  --nav-bg: #3c638d;
-  --nav-text: #fff;
-  --nav-hover: #5a82b0;
-  --nav-active: #1a3a60;
-}
-
-html, body {
-  overflow-x: hidden;
+  --nav-bg: #3c638d; /* Warna latar belakang navigasi */
+  --nav-text: #fff; /* Warna teks navigasi */
+  --nav-hover: #5a82b0; /* Warna hover navigasi */
+  --nav-active: #1a3a60; /* Warna tombol navigasi aktif */
 }
 
 body {
@@ -21,39 +17,37 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text);
-  font-size: 18px;
-
-  /* Penambahan untuk mengecilkan tampilan */
-  zoom: 0.7;
+  font-size: 18px; /* Ukuran font dasar diperbesar */
 }
 
 header {
   text-align: center;
-  padding: 2.8rem 1.5rem 1.8rem;
+  padding: 2.8rem 1.5rem 1.8rem; /* Padding header sedikit diperbesar */
   background-color: var(--primary);
   color: #fff;
 }
 
 header h1 {
   margin: 0;
-  font-size: 2.8rem;
+  font-size: 2.8rem; /* Ukuran h1 diperbesar */
 }
 
 header p {
-  margin-top: 0.8rem;
+  margin-top: 0.8rem; /* Margin diperbesar */
   font-weight: 300;
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Ukuran p di header diperbesar */
 }
 
+/* Gaya untuk Navigasi Utama */
 .main-nav {
   background-color: var(--nav-bg);
   text-align: center;
-  padding: 0.8rem 0;
+  padding: 0.8rem 0; /* Padding vertikal untuk navigasi */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin-bottom: 2.2rem;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  margin-bottom: 2.2rem; /* Jarak antara nav dan container utama */
+  display: flex; /* Menggunakan flexbox untuk tombol navigasi */
+  justify-content: center; /* Pusatkan tombol */
+  flex-wrap: wrap; /* Agar tombol bisa turun ke baris baru */
 }
 
 .nav-button {
@@ -65,23 +59,25 @@ header p {
   border-radius: 8px;
   font-weight: 500;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-size: 1.15rem;
+  font-size: 1.15rem; /* Ukuran font tombol navigasi */
 }
 
 .nav-button:hover {
   background-color: var(--nav-hover);
+  transform: translateY(-2px);
 }
 
 .nav-button.active {
-  background-color: var(--nav-active);
-  cursor: default;
-  transform: none;
+  background-color: var(--nav-active); /* Warna untuk tombol aktif */
+  cursor: default; /* Ubah kursor untuk tombol aktif */
+  transform: none; /* Hapus efek transform saat aktif */
 }
+
 
 .container {
   max-width: 1200px;
   margin: 2.2rem auto;
-  padding: 1.8rem;
+  padding: 1.8rem; /* Padding container sedikit diperbesar */
   background: var(--card-bg);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
   border-radius: 10px;
@@ -96,14 +92,17 @@ header p {
   font-size: 2rem;
 }
 
+/* Gaya untuk bagian konten yang dapat di-toggle */
 .content-section {
-  display: none;
+  display: none; /* Sembunyikan semua bagian konten secara default */
 }
 
 .content-section.active {
-  display: block;
+  display: block; /* Tampilkan bagian konten yang aktif */
 }
 
+/* Hapus gaya layout dua kolom sebelumnya, karena sekarang kita menggunakan navigasi */
+/* Properti ini diatur ulang ke nilai default atau dihapus karena tidak lagi relevan */
 .main-dashboard-layout {
   display: block;
   gap: 0;
@@ -117,12 +116,13 @@ header p {
   gap: 0;
 }
 
+/* Penyesuaian margin dan padding untuk elemen di dalam section */
 #dashboard-section .summary {
-  margin-bottom: 2.8rem;
+  margin-bottom: 2.8rem; /* Kembalikan margin bawah untuk summary */
 }
 
 #dashboard-section #chart-container {
-  margin-bottom: 0;
+  margin-bottom: 0; /* Hapus margin bawah jika ada */
 }
 
 #dashboard-section h2 {
@@ -133,6 +133,7 @@ header p {
   font-size: 2rem;
 }
 
+
 #trend-analysis-section .trend-section {
   margin-top: 0;
   padding-top: 0;
@@ -140,9 +141,9 @@ header p {
 }
 
 #trend-analysis-section #ai-explanation-container {
-  margin-top: 2.2rem;
-  padding-top: 1.8rem;
-  border-top: 1px solid #e0e0e0;
+  margin-top: 2.2rem; /* Tambahkan margin atas untuk penjelasan AI */
+  padding-top: 1.8rem; /* Tambahkan padding atas */
+  border-top: 1px solid #e0e0e0; /* Tambahkan border atas */
 }
 
 .controls {
@@ -150,6 +151,7 @@ header p {
   margin-bottom: 2.8rem;
   font-size: 1.2rem;
 }
+
 
 select {
   padding: 0.7rem 1.3rem;
@@ -169,9 +171,9 @@ select {
 
 .card {
   flex: 1 1 0;
-  min-width: 300px;
+  min-width: 300px; /* Min-width kartu sedikit diperbesar */
   max-width: calc(50% - 0.9rem);
-  padding: 1.8rem;
+  padding: 1.8rem; /* Padding kartu diperbesar */
   border-radius: 10px;
   text-align: center;
   background-color: var(--card-bg);
@@ -180,6 +182,7 @@ select {
 }
 
 .card:hover {
+  transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -215,10 +218,10 @@ canvas {
 
 footer {
   text-align: center;
-  padding: 1.8rem;
+  padding: 1.8rem; /* Padding footer diperbesar */
   color: #777;
-  font-size: 1.1rem;
-  margin-top: 2.8rem;
+  font-size: 1.1rem; /* Ukuran font footer diperbesar */
+  margin-top: 2.8rem; /* Margin diperbesar */
   border-top: 1px solid #e0e0e0;
 }
 
@@ -228,7 +231,7 @@ footer {
   margin-bottom: 2rem;
   font-weight: 600;
   color: var(--primary);
-  font-size: 2rem;
+  font-size: 2rem; /* Ukuran h2 diperbesar */
 }
 
 .trend-section .controls {
@@ -242,7 +245,7 @@ footer {
   border-radius: 8px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
-  min-width: 300px;
+  min-width: 300px; /* Min-width dropdown provinsi diperbesar */
 }
 
 #tsparticles {
@@ -265,10 +268,10 @@ footer {
 
 .ai-explanation-card {
   background-color: var(--card-bg);
-  padding: 2rem;
+  padding: 2rem; /* Padding kartu penjelasan AI diperbesar */
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  line-height: 1.8;
+  line-height: 1.8; /* Line height diperbesar untuk keterbacaan */
   text-align: justify;
 }
 
@@ -290,9 +293,10 @@ footer {
   text-align: center;
 }
 
+/* Gaya baru untuk bagian Tentang UMP dan Tentang Data */
 .about-card {
   background-color: var(--card-bg);
-  padding: 2.2rem;
+  padding: 2.2rem; /* Padding diperbesar */
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
@@ -301,38 +305,40 @@ footer {
   text-align: center;
   margin-top: -2rem;
   color: var(--primary);
-  font-size: 2rem;
+  font-size: 2rem; /* Ukuran h2 dikurangi dari 2.2rem */
   margin-bottom: 1rem;
 }
 
 .about-card h3 {
   color: var(--primary);
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Ukuran h3 tetap */
   margin-top: 1.8rem;
   margin-bottom: 1rem;
 }
 
 .about-card p {
-  font-size: 1.3rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
+  font-size: 1.3rem; /* Ukuran font paragraf dikurangi dari 2rem */
+  line-height: 1.7; /* Line height disesuaikan untuk keterbacaan */
+  margin-bottom: 1.5rem; /* Margin bawah disesuaikan */
 }
 
 .about-card ul {
   list-style-type: disc;
-  margin-left: 2.5rem;
-  margin-bottom: 1.3rem;
+  margin-left: 2.5rem; /* Margin kiri tetap */
+  margin-bottom: 1.3rem; /* Margin bawah disesuaikan */
 }
 
 .about-card ul li {
-  font-size: 1.3rem;
-  margin-bottom: 0.8rem;
-  line-height: 1.7;
+  font-size: 1.3rem; /* Ukuran font list item dikurangi dari 2rem */
+  margin-bottom: 0.8rem; /* Margin bawah sedikit disesuaikan */
+  line-height: 1.7; /* Line height disesuaikan untuk keterbacaan */
 }
 
+
+/* Media Queries untuk Responsivitas */
 @media (max-width: 768px) {
   body {
-    font-size: 17px;
+    font-size: 17px; /* Ukuran font dasar sedikit dikecilkan untuk mobile */
   }
 
   header h1 {
@@ -416,15 +422,15 @@ footer {
   }
 
   .about-card h2 {
-    font-size: 1.7rem;
+    font-size: 1.7rem; /* Disesuaikan untuk tablet */
   }
 
   .about-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.3rem; /* Disesuaikan untuk tablet */
   }
 
   .about-card p, .about-card ul li {
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Disesuaikan untuk tablet */
     line-height: 1.6;
   }
 
@@ -451,7 +457,6 @@ footer {
   .ai-explanation-card {
     padding: 1.2rem;
   }
-
   .ai-explanation-card p {
     font-size: 1rem;
   }
@@ -459,17 +464,14 @@ footer {
   .about-card {
     padding: 1.2rem;
   }
-
   .about-card h2 {
     font-size: 1.5rem;
   }
-
   .about-card h3 {
     font-size: 1.2rem;
   }
-
   .about-card p, .about-card ul li {
-    font-size: 1rem;
+    font-size: 1rem; /* Disesuaikan untuk mobile */
     line-height: 1.5;
   }
 }
