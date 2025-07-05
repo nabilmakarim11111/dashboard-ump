@@ -15,20 +15,19 @@ const trendAnalysisSection = document.getElementById("trend-analysis-section");
 
 /**
  * Helper function to parse UMP values, handling both numbers and formatted strings.
- * It will return 0 if the parsed value is 0, otherwise the numeric value or null if invalid.
  * @param {any} value The raw UMP value from data.json.
- * @returns {number|null} The parsed numeric value, 0, or null if invalid.
+ * @returns {number|null} The parsed numeric value, or null if invalid.
  */
 function parseUmpValue(value) {
     if (typeof value === 'number') {
-        return value; // If it's already a number, return it (0 is allowed here)
+        return value; // If it's already a number, return it
     }
     if (typeof value === 'string') {
         // Remove all non-digit characters except for a single decimal point if needed
         // Assuming UMP is an integer, so remove all dots and commas.
         const cleanedValue = value.replace(/\./g, '').replace(/,/g, '');
         const parsed = parseInt(cleanedValue);
-        return isNaN(parsed) ? null : parsed; // Return 0 if it's 0, null if NaN
+        return isNaN(parsed) ? null : parsed;
     }
     return null;
 }
@@ -106,7 +105,7 @@ function processDataForTrends(data) {
             }
             const nilai = data[year][provinsi];
             const numericValue = parseUmpValue(nilai); // Gunakan helper function
-            if (numericValue !== null) { // Check if parsing was successful (0 is allowed here)
+            if (numericValue !== null) { // Check if parsing was successful
                 provinceTrends[provinsi][year] = numericValue;
             }
         }
@@ -139,47 +138,39 @@ function updateChart(year) {
         "Papua Barat Daya", "Papua Selatan", "Papua Tengah", "Papua Pegunungan"
     ];
 
+    // New exclusion for 2016
+    const excludedProvincesFor2016 = [
+        "Jawa Tengah", "Jawa Timur", "DI Yogyakarta"
+    ];
+
+
     const labels = [];
     const values = [];
-    const valuesForComparison = []; // This will include 0 if present
+    const valuesForComparison = [];
     const labelsForComparison = [];
 
     for (const [provinsi, nilai] of Object.entries(data)) {
         const numericValue = parseUmpValue(nilai); // Gunakan helper function di sini juga
 
-        if (numericValue !== null) { // Pastikan nilai numerik valid (null, but 0 is allowed)
+        if (numericValue !== null) { // Pastikan nilai numerik valid
             labels.push(provinsi);
             values.push(numericValue);
+
+            // Apply specific exclusions for comparison
             const isDOB = excludedProvincesIfBefore2024.includes(provinsi);
-            if (year === "2024" || !isDOB) {
+            const is2016Excluded = (year === "2016" && excludedProvincesFor2016.includes(provinsi));
+
+            if ((year === "2024" || !isDOB) && !is2016Excluded) {
                 labelsForComparison.push(provinsi);
                 valuesForComparison.push(numericValue);
             }
         }
     }
 
-    // Filter out 0 values for min/max calculation, but keep them for display
-    const validValuesForMinMax = valuesForComparison.filter(val => val > 0);
-
-    let maxVal = 0;
-    let minVal = 0;
-    let maxProv = "N/A";
-    let minProv = "N/A";
-
-    if (validValuesForMinMax.length > 0) {
-        maxVal = Math.max(...validValuesForMinMax);
-        minVal = Math.min(...validValuesForMinMax);
-
-        // Find the corresponding province names for max and min values
-        maxProv = labelsForComparison[valuesForComparison.indexOf(maxVal)];
-        minProv = labelsForComparison[valuesForComparison.indexOf(minVal)];
-    } else {
-         // Handle case where no valid (non-zero) UMP data is available for comparison
-        document.getElementById("highest").innerText = `Data tidak tersedia`;
-        document.getElementById("lowest").innerText = `Data tidak tersedia`;
-        if (chart) chart.destroy();
-        return;
-    }
+    const maxVal = Math.max(...valuesForComparison);
+    const minVal = Math.min(...valuesForComparison);
+    const maxProv = labelsForComparison[valuesForComparison.indexOf(maxVal)];
+    const minProv = labelsForComparison[valuesForComparison.indexOf(minVal)];
 
     document.getElementById("highest").innerText = `${maxProv} - Rp${maxVal.toLocaleString("id-ID")}`;
     document.getElementById("lowest").innerText = `${minProv} - Rp${minVal.toLocaleString("id-ID")}`;
@@ -209,16 +200,20 @@ function updateChart(year) {
                             const nilaiSekarang = context.parsed.y;
                             const prevYear = (parseInt(year) - 1).toString();
                             const prevValueRaw = umpData[prevYear]?.[provinsi];
-                            
+
                             const nilaiLalu = parseUmpValue(prevValueRaw); // Gunakan helper function
 
-                            if (nilaiLalu === null || nilaiLalu === 0) { // Jika nilaiLalu tidak dapat di-parse, tidak ada, atau 0
+                            if (nilaiLalu === null) { // Jika nilaiLalu tidak dapat di-parse atau tidak ada
                                 return `Rp${nilaiSekarang.toLocaleString("id-ID")} (Data pembanding tidak tersedia)`;
+                            }
+
+                            if(nilaiLalu === 0) {
+                                return `Rp${nilaiSekarang.toLocaleString("id-ID")} (Data sebelumnya Rp0)`;
                             }
 
                             const kenaikan = ((nilaiSekarang - nilaiLalu) / nilaiLalu) * 100;
                             const persen = kenaikan.toFixed(2);
-                            return `Rp${nilaiSekarang.toLocaleString("id-ID")} (${kenaikan >= 0 ? '↑' : '↓'} ${persen}%)`;
+                            return `Rp${nilaiSekarang.toLocaleString("id-ID")} (↑ ${persen}%)`;
                         }
                     }
                 },
@@ -243,21 +238,11 @@ function updateTrendChart(provinsi) {
     if (!trendData) {
         console.error(`Data tren untuk ${provinsi} tidak ditemukan.`);
         aiExplanationDiv.innerHTML = `<p class="error-text">Data tren untuk ${provinsi} tidak ditemukan.</p>`;
-        if (trendChart) trendChart.destroy(); // Destroy previous chart if no data
         return;
     }
 
     const labels = Object.keys(trendData).sort();
     const values = labels.map(year => trendData[year]);
-
-    // Ensure there are at least two data points to show a trend and calculate percentage change
-    // If only one or zero points, still display the chart but with limited tooltip info
-    if (values.length < 1) {
-         aiExplanationDiv.innerHTML = `<p class="info-text">Tidak ada data untuk menampilkan tren ${provinsi}.</p>`;
-         if (trendChart) trendChart.destroy();
-         return;
-    }
-
 
     if (trendChart) trendChart.destroy();
 
@@ -289,20 +274,20 @@ function updateTrendChart(provinsi) {
                             const index = context.dataIndex;
                             const nilaiSekarang = context.parsed.y;
 
-                            if (index === 0) { // First data point has no previous value for comparison
+                            if (index === 0) {
                                 return `Rp${nilaiSekarang.toLocaleString("id-ID")}`;
                             }
 
                             const nilaiLalu = context.dataset.data[index - 1];
 
-                            if (nilaiLalu === null || nilaiLalu === 0) { // Jika nilaiLalu tidak valid atau 0
-                                return `Rp${nilaiSekarang.toLocaleString("id-ID")} (Data sebelumnya tidak tersedia atau nol)`;
+                            if (nilaiLalu === 0) {
+                                return `Rp${nilaiSekarang.toLocaleString("id-ID")} (Data sebelumnya Rp0)`;
                             }
 
                             const kenaikan = ((nilaiSekarang - nilaiLalu) / nilaiLalu) * 100;
                             const persen = kenaikan.toFixed(2);
 
-                            return `Rp${nilaiSekarang.toLocaleString("id-ID")} (${kenaikan >= 0 ? '↑' : '↓'} ${persen}%)`;
+                            return `Rp${nilaiSekarang.toLocaleString("id-ID")} (↑ ${persen}%)`;
                         }
                     }
                 }
@@ -326,14 +311,13 @@ async function generateTrendExplanation(provinsi, trendData) {
         .sort(([yearA], [yearB]) => parseInt(yearA) - parseInt(yearB))
         .map(([year, value]) => `${year}: Rp${value.toLocaleString("id-ID")}`);
 
-    const prompt = `Berikan analisis singkat dan informatif (maksimal 150 kata) mengenai tren Upah Minimum Provinsi (UMP) untuk ${provinsi} berdasarkan data berikut:\n\n${trendArray.join('\n')}\n\nSertakan poin-poin penting seperti kenaikan/penurunan signifikan, periode stagnasi, dan pertumbuhan keseluruhan. Gunakan bahasa yang mudah dipahami. Jelaskan jika ada data yang menunjukkan UMP 0 atau tidak tersedia untuk periode tertentu.`;
+    const prompt = `Berikan analisis singkat dan informatif (maksimal 150 kata) mengenai tren Upah Minimum Provinsi (UMP) untuk ${provinsi} berdasarkan data berikut:\n\n${trendArray.join('\n')}\n\nSertakan poin-poin penting seperti kenaikan/penurunan signifikan, periode stagnasi, dan pertumbuhan keseluruhan. Gunakan bahasa yang mudah dipahami.`;
 
     try {
         let chatHistory = [];
         chatHistory.push({ role: "user", parts: [{ text: prompt }] });
         const payload = { contents: chatHistory };
-        // Use the API key provided in the original code, ensure it's correct
-        const apiKey = "AIzaSyDDQNgVqXdPn0bpVqQ6dEN29eORlb_w3h0"; 
+        const apiKey = "AIzaSyDDQNgVqXdPn0bpVqQ6dEN29eORlb_w3h0"; // This API key should be kept secure and not exposed in client-side code.
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(apiUrl, {
