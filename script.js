@@ -7,6 +7,8 @@ const chartCanvas = document.getElementById("umpChart");
 const provinceSelect = document.getElementById("province-select");
 const trendChartCanvas = document.getElementById("trendChart");
 const aiExplanationDiv = document.getElementById("ai-explanation");
+const chartDescriptionParagraph = document.getElementById("chart-description");
+
 
 // Elemen-elemen navigasi dan konten
 const navButtons = document.querySelectorAll(".nav-button");
@@ -134,14 +136,28 @@ function updateChart(year) {
         selectedYearSpan.textContent = year;
     }
 
+    // Update the chart description based on the selected year
+    let baseDescription = `Grafik ini perbandingan UMP provinsi di Indonesia pada tahun <span id="selected-year">${year}</span>. Arahkan kursor ke batang grafik untuk melihat detail kenaikan dari tahun sebelumnya.`;
+
     const excludedProvincesIfBefore2024 = [
         "Papua Barat Daya", "Papua Selatan", "Papua Tengah", "Papua Pegunungan"
     ];
 
-    // New exclusion for 2016
     const excludedProvincesFor2016 = [
         "Jawa Tengah", "Jawa Timur", "DI Yogyakarta"
     ];
+
+    if (year === "2016") {
+        baseDescription += `<br><br><strong>Catatan:</strong> Pada tahun ${year}, Jawa Tengah, Jawa Timur, dan DI Yogyakarta tidak mengeluarkan UMP untuk daerah mereka, sehingga dikecualikan dari perhitungan nilai terendah.`;
+    }
+    
+    // Add the general note for years before 2024
+    if (parseInt(year) < 2024) {
+        baseDescription += `<br><br><strong>Catatan Umum:</strong> Sebelum tahun 2024, empat provinsi baru (Papua Barat Daya, Papua Selatan, Papua Tengah, dan Papua Pegunungan) belum terbentuk dan oleh karena itu tidak termasuk dalam data UMP tahun tersebut.`;
+    }
+
+
+    chartDescriptionParagraph.innerHTML = baseDescription;
 
 
     const labels = [];
@@ -317,7 +333,8 @@ async function generateTrendExplanation(provinsi, trendData) {
         let chatHistory = [];
         chatHistory.push({ role: "user", parts: [{ text: prompt }] });
         const payload = { contents: chatHistory };
-        const apiKey = "AIzaSyDDQNgVqXdPn0bpVqQ6dEN29eORlb_w3h0"; // This API key should be kept secure and not exposed in client-side code.
+        // In a real application, consider using a backend to handle API calls to keep API keys secure.
+        const apiKey = "AIzaSyCua_9rl4iYQCw0HWN0A_9Ik5KSktM44b8";
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(apiUrl, {
