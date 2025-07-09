@@ -319,6 +319,7 @@ footer {
 .about-card p {
   font-size: 1.3rem; /* Ukuran font paragraf dikurangi dari 2rem */
   line-height: 1.7; /* Line height disesuaikan untuk keterbacaan */
+  margin-top: -0.02rem;
   margin-bottom: 1.5rem; /* Margin bawah disesuaikan */
 }
 

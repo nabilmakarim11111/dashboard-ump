@@ -164,7 +164,7 @@ function updateChart(year) {
     
     // Add the general note for years before 2024
     if (parseInt(year) < 2024) {
-        baseDescription += `<br><br><strong>Catatan Umum:</strong> Sebelum tahun 2024, empat provinsi baru (Papua Barat Daya, Papua Selatan, Papua Tengah, dan Papua Pegunungan) belum terbentuk dan oleh karena itu tidak termasuk dalam data UMP tahun tersebut.`;
+        baseDescription += `<br><br><strong>Catatan:</strong> Sebelum tahun 2024, empat provinsi baru (Papua Barat Daya, Papua Selatan, Papua Tengah, dan Papua Pegunungan) belum terbentuk dan oleh karena itu tidak termasuk dalam data UMP tahun tersebut.`;
     }
 
 
